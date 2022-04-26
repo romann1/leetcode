@@ -3,7 +3,8 @@ from unittest import TestCase
 
 
 class Solution:
-    def maxProfit(self, prices: List[int]) -> int:
+    @staticmethod
+    def maxProfit(prices: List[int]) -> int:
         max_profit = 0
         best_profit = 0
         best_buy = -1
