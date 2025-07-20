@@ -3,10 +3,10 @@ from typing import List
 
 
 class TreeNode:
-    def __init__(self, val):
-        self.val = val
-        self.left = None
-        self.right = None
+    def __init__(self, val: int):
+        self.val: int = val
+        self.left: 'TreeNode | None' = None
+        self.right: 'TreeNode | None' = None
 
     def __repr__(self):
         s = "["
@@ -25,7 +25,7 @@ class BSTree:
         root = TreeNode(val)
         self.root = root
 
-    def add(self, new_val):
+    def add(self, new_val: int):
         cur_node = self.root
         inserted = False
 
@@ -48,10 +48,10 @@ class BSTree:
                 cur_node = new_node
 
     @staticmethod
-    def inorder(node: TreeNode):
+    def inorder(node: 'TreeNode | None'):
         res_list = []
 
-        def _inorder(node: TreeNode, res_list: List[int]):
+        def _inorder(node: 'TreeNode | None', res_list: List[int]):
             if node is not None:
                 _inorder(node.left, res_list)
                 res_list.append(node.val)
@@ -61,10 +61,10 @@ class BSTree:
         return res_list
 
     @staticmethod
-    def postorder(node: TreeNode):
+    def postorder(node: 'TreeNode | None'):
         res_list = []
 
-        def _postorder(node: TreeNode, res_list: List[int]):
+        def _postorder(node: 'TreeNode | None', res_list: List[int]):
             if node is not None:
                 _postorder(node.left, res_list)
                 _postorder(node.right, res_list)
@@ -74,10 +74,10 @@ class BSTree:
         return res_list
 
     @staticmethod
-    def preorder(node: TreeNode):
+    def preorder(node: 'TreeNode | None'):
         res_list = []
 
-        def _preorder(node: TreeNode, res_list: List[int]):
+        def _preorder(node: 'TreeNode | None', res_list: List[int]):
             if node is not None:
                 res_list.append(node.val)
                 _preorder(node.left, res_list)
@@ -88,13 +88,13 @@ class BSTree:
         return res_list
 
     @staticmethod
-    def count(node: TreeNode):
+    def count(node: 'TreeNode | None'):
         if node is not None:
             return 1 + BSTree.count(node.left) + BSTree.count(node.right)
         return 0
 
     @staticmethod
-    def height(node: TreeNode):
+    def height(node: 'TreeNode | None'):
         if node is not None:
             left_height = BSTree.height(node.left)
             right_height = BSTree.height(node.right)
@@ -103,10 +103,10 @@ class BSTree:
 
     def delete(self, val: int) -> bool:
         cur_node = self.root
-        prev_node = self.root
+        prev_node = None
         found = False
 
-        while not found:
+        while cur_node is not None and not found:
             if cur_node.val == val:
                 found = True
             else:
@@ -116,21 +116,21 @@ class BSTree:
                 else:
                     cur_node = cur_node.left
 
-            if cur_node is None:
-                found = True
-
         if cur_node is None:
             return False
 
         if cur_node.left is None and cur_node.right is None:
-            if cur_node.val > prev_node.val:
-                prev_node.right = None
-            else:
-                prev_node.left = None
+            if prev_node is not None:
+                if cur_node.val > prev_node.val:
+                    prev_node.right = None
+                else:
+                    prev_node.left = None
         elif cur_node.left is None and cur_node.right is not None:
-            prev_node.right = cur_node.right
+            if prev_node is not None:
+                prev_node.right = cur_node.right
         elif cur_node.left is not None and cur_node.right is None:
-            prev_node.left = cur_node.left
+            if prev_node is not None:
+                prev_node.left = cur_node.left
         else:
             min_node, min_parent = BSTree._find_min(cur_node.right, cur_node)
             if min_node.val >= min_parent.val:
@@ -143,16 +143,12 @@ class BSTree:
         return True
 
     @staticmethod
-    def _find_min(node: TreeNode, parent: TreeNode) -> (TreeNode, TreeNode):
-        found = False
-
-        while not found:
-            if node.left is not None:
-                parent = node
-                node = node.left
-            else:
-                found = True
-
+    def _find_min(node: 'TreeNode | None', parent: 'TreeNode | None') -> tuple['TreeNode', 'TreeNode']:
+        if node is None or parent is None:
+            raise ValueError("node and parent must not be None")
+        while node.left is not None:
+            parent = node
+            node = node.left
         return node, parent
 
 

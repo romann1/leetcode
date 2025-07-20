@@ -2,9 +2,9 @@ from typing import List
 
 
 class Solution:
-    def maxSubArray(self, nums: List[int]) -> (int, int, int):
+    def maxSubArray(self, nums: List[int]) -> tuple[int, int, int]:
         if len(nums) == 1:
-            return nums[0]
+            return nums[0], 0, 1
 
         best_sum = nums[0]  # or: float('-inf')
         best_start = best_end = 0  # or: None

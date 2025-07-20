@@ -11,7 +11,7 @@ class Solution:
         """
         mymap = {0: -1}
         maxlen = 0
-        count = 0;
+        count = 0
 
         for i, x in enumerate(nums):
             count = count + (-1 if x == 0 else 1)
@@ -22,7 +22,7 @@ class Solution:
             else:
                 mymap[count] = i
 
-        return maxlen;
+        return maxlen
 
 
 class TestContiguousArray(TestCase):

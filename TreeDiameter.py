@@ -1,12 +1,12 @@
 class TreeNode:
-    def __init__(self, x):
-        self.val = x
-        self.left = None
-        self.right = None
+    def __init__(self, x: int):
+        self.val: int = x
+        self.left: 'TreeNode | None' = None
+        self.right: 'TreeNode | None' = None
 
 
 class Solution:
-    def diameterOfBinaryTree(self, root: TreeNode) -> int:
+    def diameterOfBinaryTree(self, root: 'TreeNode | None') -> int:
         if root is None:
             return 0
 
@@ -16,11 +16,12 @@ class Solution:
 
         return max(rootDiameter, max(leftDiameter, rightDiameter))
 
-    def getHeight(self, root : TreeNode) -> int:
+    def getHeight(self, root: 'TreeNode | None') -> int:
         if root is None:
             return 0
-
-        return max(self.getHeight(root.left), self.getHeight(root.right)) + 1
+        left_height = self.getHeight(root.left) if root.left else 0
+        right_height = self.getHeight(root.right) if root.right else 0
+        return max(left_height, right_height) + 1
 
 
 four = TreeNode(4)

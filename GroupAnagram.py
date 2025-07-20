@@ -7,7 +7,7 @@ class Solution:
         for cur_str in strs:
             sorted_str = str(sorted(cur_str))
             if sorted_str in anagram_map:
-                anagram_map.get(sorted_str).append(cur_str)
+                anagram_map[sorted_str].append(cur_str)
             else:
                 anagram_map[sorted_str] = [cur_str]
 

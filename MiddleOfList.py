@@ -1,10 +1,10 @@
 class ListNode:
     def __init__(self, x):
         self.val = x
-        self.next = None
+        self.next: 'ListNode | None' = None
 
     @staticmethod
-    def make_list(in_list):
+    def make_list(in_list) -> 'ListNode | None':
         head = ListNode(None)
         tail = ListNode(None)
 
@@ -31,14 +31,14 @@ class ListNode:
 
 
 class Solution:
-    def middleNode(self, head: ListNode) -> ListNode:
+    def middleNode(self, head: 'ListNode | None') -> 'ListNode | None':
         ptr = head
         mid = head
 
         i = 0
         while ptr is not None:
             i += 1
-            if i % 2 == 0:
+            if i % 2 == 0 and mid is not None:
                 mid = mid.next
             ptr = ptr.next
 
